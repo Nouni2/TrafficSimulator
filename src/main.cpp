@@ -1,7 +1,6 @@
 #include <iostream>
-
-#include "point.h" 
-#include "road.h"
+#include "../include/point.h"
+#include "../include/road.h"
 
 int main() {
     Point start(0, 0);

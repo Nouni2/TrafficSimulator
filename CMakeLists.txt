@@ -13,4 +13,4 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(TrafficSimulator ${SOURCES})
 
 # Inclusion des fichiers d'en-tête
-include_directories(include)
+include_directories(${PROJECT_SOURCE_DIR}/include)
