@@ -1,19 +1,31 @@
 #include <iostream>
 #include "../include/point.h"
 #include "../include/road.h"
+#include "../include/intersection.h"
+#include "../include/car.h"
+#include "../include/truck.h"
+#include "../include/motorcycle.h"
+#include "../include/bicycle.h"
 
 int main() {
-    Point start(0, 0, 0); // Point en 3D
-    Point end(100, 0, 10); // Point en 3D avec une hauteur différente
+    // Création de véhicules
+    Car car1("Car1", 120, 2.0, 4.0, 1.5);
+    Truck truck1("Truck1", 90, 2.5, 12.0, 2.5);
+    Motorcycle motorcycle1("Motorcycle1", 100, 0.8, 2.2, 1.0);
+    Bicycle bicycle1("Bicycle1", 25, 0.6, 1.8, 0.5);
 
-    Road road("Road1", start, end, 100, 25, 2);
+    // Affichage des informations des véhicules
+    std::vector<Vehicle*> vehicles = {&car1, &truck1, &motorcycle1, &bicycle1};
 
-    std::cout << "Road ID: " << road.getId() << std::endl;
-    std::cout << "Start Point: (" << road.getStart().getX() << ", " << road.getStart().getY() << ", " << road.getStart().getZ() << ")" << std::endl;
-    std::cout << "End Point: (" << road.getEnd().getX() << ", " << road.getEnd().getY() << ", " << road.getEnd().getZ() << ")" << std::endl;
-    std::cout << "Length: " << road.getLength() << " meters" << std::endl;
-    std::cout << "Max Speed: " << road.getMaxSpeed() << " m/s" << std::endl;
-    std::cout << "Lanes: " << road.getLanes() << std::endl;
+    for (const auto& vehicle : vehicles) {
+        std::cout << "Vehicle ID: " << vehicle->getId() << std::endl;
+        std::cout << "Type: " << vehicle->getType() << std::endl;
+        std::cout << "Max Speed: " << vehicle->getMaxSpeed() << " km/h" << std::endl;
+        std::cout << "Width: " << vehicle->getWidth() << " m" << std::endl;
+        std::cout << "Length: " << vehicle->getLength() << " m" << std::endl;
+        std::cout << "Reaction Time: " << vehicle->getReactionTime() << " s" << std::endl;
+        std::cout << std::endl;
+    }
 
     return 0;
 }
