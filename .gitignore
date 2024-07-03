@@ -1,0 +1,95 @@
+# Dossier de build
+build/
+
+# Fichiers d'objets
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.libs
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Fichiers de debug
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Fichiers temporaires de l'éditeur
+*.swp
+*.swo
+
+# Fichiers de journalisation
+*.log
+
+# Fichiers temporaires
+*.tmp
+
+# Fichiers de traçage
+*.stackdump
+
+# Dossiers spécifiques à l'éditeur
+.vscode/
+.idea/
+*.code-workspace
+
+# Fichiers générés par le système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration de l'environnement de développement
+.env
+
+# Fichiers CMake
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+cmake_install.cmake
+Makefile
+
+# Fichiers de projet Visual Studio
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.vspscc
+*.vssscc
+*.ncb
+*.sdf
+*.opensdf
+*.sln
+*.suo
+
+# Fichiers de projet Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.xcworkspace
+xcuserdata/
+profile
+*.moved-aside
+DerivedData/
+.idea/
+
+# Dossiers spécifiques à JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Fichiers générés par Qt
+*.moc
+*.qrc
+*.rcc
+
+# Fichiers de backup
+*~
+*.bak
+
+# Dossiers de cache
+.cache/

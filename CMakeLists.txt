@@ -14,7 +14,3 @@ add_executable(TrafficSimulator ${SOURCES})
 
 # Inclusion des fichiers d'en-tête
 include_directories(include)
-
-# Lien avec les bibliothèques Qt
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-target_link_libraries(TrafficSimulator Qt5::Widgets)

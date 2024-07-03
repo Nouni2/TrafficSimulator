@@ -1,9 +1,7 @@
-#include "Point.h"
+#include "point.h"
 
-// Définition du constructeur
 Point::Point(double x, double y) : x(x), y(y) {}
 
-// Définition des méthodes publiques
 double Point::getX() const {
     return x;
 }
