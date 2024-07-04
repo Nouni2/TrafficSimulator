@@ -8,7 +8,7 @@
 \usepackage{hyperref}
 
 \title{Modélisation du Trafic Routier}
-\author{Nom de l'Auteur}
+\author{Nouni2}
 \date{\today}
 
 \begin{document}
@@ -196,5 +196,47 @@ L'écart-type de la vitesse maximale \( v_{\text{max, courbure}} \) est approxim
 \]
 
 Ces formules montrent que la variabilité du comportement des conducteurs influence directement la vitesse maximale sécuritaire dans les virages, avec une augmentation de l'écart-type entraînant une plus grande dispersion des vitesses maximales possibles.
+
+\section{Influence de la Pente sur l'Accélération}
+
+Les pentes affectent directement l'accélération des véhicules. Lorsque le véhicule monte ou descend une pente, l'accélération doit être ajustée pour tenir compte de la composante gravitationnelle le long de la pente.
+
+\subsection{Détermination de l'Angle de la Pente}
+
+L'angle \(\theta(s)\) de la pente à la position \(s\) le long de la route peut être déterminé en utilisant le vecteur tangent \(\vec{T}(s)\) et le vecteur de la gravité \(\vec{g}\).
+
+Le vecteur de la gravité \(\vec{g}\) est :
+
+\[
+\vec{g} = \begin{pmatrix}
+0 \\
+0 \\
+-g
+\end{pmatrix}
+\]
+
+L'angle \(\theta(s)\) entre \(\vec{T}(s)\) et \(\vec{g}\) peut être déterminé par le produit scalaire :
+
+\[
+\cos(\theta(s)) = \frac{\vec{T}(s) \cdot \vec{g}}{|\vec{T}(s)| |\vec{g}|}
+\]
+
+\subsection{Influence sur l'Accélération}
+
+Pour modéliser l'effet de la pente, nous ajustons l'accélération longitudinale en tenant compte de l'angle de la pente \(\theta(s)\). Nous considérons que le conducteur réagit en ajustant son accélération pour compenser la pente.
+
+\paragraph{Accélération Longitudinale Ajustée :}
+
+Lorsque le véhicule monte une pente (\(\theta(s) > 0\)), la composante de la gravité le ralentit, et lorsque le véhicule descend une pente (\(\theta(s) < 0\)), la composante de la gravité l'accélère. Nous modélisons cela par une composante d'accélération supplémentaire :
+
+\[
+a_{\text{long, pente}} = a_{\text{long}} - g \sin(\theta(s)) \tag{3}
+\]
+
+où :
+\begin{itemize}
+    \item \(a_{\text{long}}\) est l'accélération longitudinale due au contrôle du véhicule (accélération ou freinage).
+    \item \(g \sin(\theta(s))\) est la composante de la gravité le long de la pente.
+\end{itemize}
 
 \end{document}
