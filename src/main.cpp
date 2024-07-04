@@ -1,30 +1,40 @@
 #include <iostream>
-#include "../include/point.h"
-#include "../include/road.h"
-#include "../include/intersection.h"
-#include "../include/car.h"
-#include "../include/truck.h"
-#include "../include/motorcycle.h"
-#include "../include/bicycle.h"
+#include "point.h"
+#include "road.h"
+#include "vehicle.h"
+#include "traffic_manager.h"
+
+class Car : public Vehicle {
+public:
+    Car(const std::string& id, double maxSpeed, double width, double length, double reactionTime)
+        : Vehicle(id, maxSpeed, width, length, reactionTime) {}
+
+    std::string getType() const override {
+        return "Car";
+    }
+};
 
 int main() {
-    // Création de véhicules
-    Car car1("Car1", 120, 2.0, 4.0, 1.5);
-    Truck truck1("Truck1", 90, 2.5, 12.0, 2.5);
-    Motorcycle motorcycle1("Motorcycle1", 100, 0.8, 2.2, 1.0);
-    Bicycle bicycle1("Bicycle1", 25, 0.6, 1.8, 0.5);
+    // Create roads
+    Road road1("R1", Point(0, 0, 0), Point(100, 0, 0), 100, 25, 2);
 
-    // Affichage des informations des véhicules
-    std::vector<Vehicle*> vehicles = {&car1, &truck1, &motorcycle1, &bicycle1};
+    // Create vehicles
+    Car car1("Car1", 20, 2, 4, 1.5);
+    car1.setPosition(Point(0, 0, 0));
+    car1.setSpeed(20);
+    car1.setRoad(&road1);
 
-    for (const auto& vehicle : vehicles) {
-        std::cout << "Vehicle ID: " << vehicle->getId() << std::endl;
-        std::cout << "Type: " << vehicle->getType() << std::endl;
-        std::cout << "Max Speed: " << vehicle->getMaxSpeed() << " km/h" << std::endl;
-        std::cout << "Width: " << vehicle->getWidth() << " m" << std::endl;
-        std::cout << "Length: " << vehicle->getLength() << " m" << std::endl;
-        std::cout << "Reaction Time: " << vehicle->getReactionTime() << " s" << std::endl;
-        std::cout << std::endl;
+    // Create traffic manager
+    TrafficManager trafficManager;
+    trafficManager.addVehicle(&car1);
+
+    // Update traffic manager
+    double deltaTime = 1.0; // 1 second time step
+    for (int i = 0; i < 10; ++i) {
+        trafficManager.update(deltaTime);
+        Point pos = car1.getPosition();
+        std::cout << "Car1 position at time " << (i + 1) * deltaTime << "s: ("
+                  << pos.getX() << ", " << pos.getY() << ", " << pos.getZ() << ")" << std::endl;
     }
 
     return 0;

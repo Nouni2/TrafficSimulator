@@ -2,12 +2,12 @@
 #define ROAD_H
 
 #include <string>
+#include <vector>
 #include "point.h"
 
 class Road {
 public:
     Road(const std::string& id, const Point& start, const Point& end, double length, double maxSpeed, int lanes);
-    ~Road();
 
     std::string getId() const;
     Point getStart() const;
@@ -15,6 +15,8 @@ public:
     double getLength() const;
     double getMaxSpeed() const;
     int getLanes() const;
+
+    Point getPositionAlongRoad(const Point& currentPosition, double distance) const;
 
 private:
     std::string id;

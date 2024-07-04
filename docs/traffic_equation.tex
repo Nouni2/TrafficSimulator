@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Modélisation du Trafic avec Densités Variables}
+\author{Nouni2}
+\date{ Juillet 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Dans cette section, nous allons présenter une équation de continuité pour modéliser la dynamique du trafic routier, en tenant compte de plusieurs types de véhicules. L'équation (1) représente la variation temporelle de la densité de chaque type de véhicule en fonction de la densité totale du trafic.
+
+\section{Équation de Continuité Générale}
+
+Pour un type de véhicule \(i\), notons \(\rho_i(x, t)\) la densité de ce type de véhicule à la position \(x\) et au temps \(t\). La densité totale \(\rho_{\text{tot}}\) est la somme des densités de tous les types de véhicules :
+
+\[
+\rho_{\text{tot}} = \sum_{i} \rho_i
+\]
+
+La vitesse \(v_i(\rho_{\text{tot}})\) des véhicules de type \(i\) dépend de la densité totale \(\rho_{\text{tot}}\). Une relation couramment utilisée est :
+
+\[
+v_i(\rho_{\text{tot}}) = V_i \left(1 - \frac{\rho_{\text{tot}}}{\rho_{\text{max}}}\right)
+\]
+
+où \(V_i\) est la vitesse maximale des véhicules de type \(i\) et \(\rho_{\text{max}}\) est la densité maximale de véhicules.
+
+\section{Équation de Continuité pour Chaque Type de Véhicule}
+
+L'équation de continuité pour le type de véhicule \(i\) est donnée par :
+
+\[
+\frac{\partial \rho_i}{\partial t} + \frac{\partial (\rho_i v_i(\rho_{\text{tot}}))}{\partial x} = 0
+\]
+
+En substituant la relation de vitesse dans cette équation, nous obtenons :
+
+\[
+\frac{\partial \rho_i}{\partial t} + \frac{\partial \left( \rho_i V_i \left( 1 - \frac{\rho_{\text{tot}}}{\rho_{\text{max}}} \right) \right)}{\partial x} = 0
+\]
+
+En développant ce terme, nous avons :
+
+\[
+\frac{\partial \rho_i}{\partial t} + V_i \frac{\partial \rho_i}{\partial x} - \frac{V_i \rho_i}{\rho_{\text{max}}} \sum_j \frac{\partial \rho_j}{\partial x} = 0
+\]
+
+Pour plus de clarté, nous réécrivons cette équation comme suit :
+
+\[
+\frac{\partial \rho_i}{\partial t} + V_i \frac{\partial \rho_i}{\partial x} = \frac{V_i \rho_i}{\rho_{\text{max}}} \sum_j \frac{\partial \rho_j}{\partial x}
+\]
+
+\section{Interprétation de l'Équation (1)}
+
+L'équation (1) décrit la variation de la densité \(\rho_i\) du type de véhicule \(i\) avec le temps et l'espace en fonction de la densité totale du trafic. Chaque terme de cette équation a une signification spécifique :
+
+\begin{itemize}
+    \item \(\frac{\partial \rho_i}{\partial t}\) : Ce terme représente le changement de la densité du type de véhicule \(i\) avec le temps.
+    \item \(V_i \frac{\partial \rho_i}{\partial x}\) : Ce terme représente le déplacement de la densité \(\rho_i\) le long de la route à la vitesse \(V_i\).
+    \item \(\frac{V_i \rho_i}{\rho_{\text{max}}} \sum_j \frac{\partial \rho_j}{\partial x}\) : Ce terme représente l'effet de la densité totale \(\rho_{\text{tot}}\) sur la propagation de la densité de chaque type de véhicule \(i\).
+\end{itemize}
+
+L'équation montre que la densité de chaque type de véhicule est influencée par la densité totale de tous les types de véhicules sur la route, incluant elle-même. Cette interaction reflète comment la congestion globale affecte la dynamique du trafic pour chaque type de véhicule.
+
+\section{Conclusion}
+
+L'équation (1) fournit un cadre mathématique pour modéliser la dynamique du trafic en tenant compte de plusieurs types de véhicules et de leurs interactions. Cette approche permet d'analyser des situations de trafic complexes et de comprendre l'effet de la densité totale sur la propagation des véhicules.
+
+\end{document}
