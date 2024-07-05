@@ -115,21 +115,59 @@ La figure ci-dessous montre les prédictions du modèle par rapport aux données
 Ce processus permet de déterminer de manière efficace et précise les valeurs de \(\beta\) pour ajuster la distribution des vitesses des véhicules autour de \(v_{\text{max}}\), en tenant compte de l'étalement souhaité défini par le ratio \(r\).
 
 
+\newpage
 
 \section{Modélisation de l'Accélération Libre}
-Deux modèles ont été envisagés pour modéliser le temps d'accélération par unité de vitesse : le modèle logarithmique et le modèle racine carrée. Après analyse, nous avons retenu le modèle racine carrée. Le temps d'accélération par unité de vitesse est donné par :
-\[
-t_{\text{acc\_per\_unit\_v}} = t_0 \left( 1 + \sqrt{\frac{v}{v_{\text{ref}}}} \right)
-\]
-où \(t_0\) et \(v_{\text{ref}}\) sont des paramètres ajustés pour correspondre aux points de référence \( (140 \, \text{km/h}, 2.7 \, \text{s/km/h}) \) et \( (30 \, \text{km/h}, 0.5 \, \text{s/km/h}) \).
 
-\section{Calcul des Accélérations}
-Pour chaque véhicule, le temps d'accélération par unité de vitesse est tiré d'une distribution gaussienne avec une moyenne \(t_0\) et un écart-type de \(0.1 \cdot t_0\). L'accélération pour atteindre la vitesse cible \(v_{\text{lim}}\) est alors calculée par :
+L'accélération libre d'un véhicule, c'est-à-dire l'accélération qu'il effectue pour atteindre une vitesse cible en l'absence de trafic et de conditions de route adverses, est un aspect crucial du réalisme de notre simulation. Modéliser cette accélération de manière précise nécessite de prendre en compte la dépendance de l'accélération à la vitesse cible.
+
+L'approche simple consistant à diviser la vitesse cible par un temps d'accélération constant n'est pas suffisante car elle ne capture pas la variation de l'accélération avec la vitesse. Par conséquent, nous introduisons le temps d'accélération par unité de vitesse, noté \(t_{\text{acc\_per\_unit\_v}}\), qui représente le temps nécessaire pour accélérer d'une unité de vitesse.
+
+Deux modèles ont été envisagés pour modéliser \(t_{\text{acc\_per\_unit\_v}}\) :
+
+1. Modèle logarithmique :
+   \[
+   t_{\text{acc\_per\_unit\_v}} = t_0 \log\left(1 + \frac{v}{v_{\text{ref}}}\right)
+   \]
+
+2. Modèle racine carrée :
+   \[
+   t_{\text{acc\_per\_unit\_v}} = t_0 \left(1 + \sqrt{\frac{v}{v_{\text{ref}}}}\right)
+   \]
+
+Après analyse, nous avons retenu le modèle racine carrée. Ce modèle a été ajusté pour correspondre à des points de référence. Les paramètres retenus sont :
+\[
+t_0 = 0.15 \, \text{s/km/h}
+\]
+\[
+v_{\text{ref}} = 16.26 \, \text{km/h}
+\]
+
+La figure ci-dessous illustre le modèle racine carrée pour \(t_{\text{acc\_per\_unit\_v}}\) :
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{sqrt model.png}
+    \caption{Modèle racine carrée pour \(t_{\text{acc\_per\_unit\_v}}\).}
+    \label{fig:sqrt_model}
+\end{figure}
+
+\section{Calcul de l'Accélération Libre}
+Pour chaque véhicule, nous modélisons le temps d'accélération par unité de vitesse en utilisant une distribution gaussienne avec une moyenne \(t_0\) et un écart-type de \(0.1 \cdot t_0\). Ce temps d'accélération par unité de vitesse, noté \(t_{\text{acc\_per\_unit\_v}}\), permet de prendre en compte la variabilité des conducteurs dans notre simulation.
+
+L'accélération nécessaire pour atteindre la vitesse cible \(v_{\text{lim}}\) à partir de la vitesse initiale \(v_i\) est donnée par :
 \[
 a = \frac{v_{\text{lim}} - v_i}{t_{\text{acc\_per\_unit\_v}} \cdot v_{\text{lim}}}
 \]
 
-\section{Conclusion}
-Ce modèle permet de simuler de manière réaliste les vitesses et les accélérations des véhicules sur une route libre. Les ajustements apportés aux paramètres de la distribution de Pareto inversée et à la modélisation de l'accélération garantissent que les résultats reflètent fidèlement les comportements observés dans le trafic routier.
+
+La figure ci-dessous montre la courbe du modèle racine carrée pour \(t_{\text{acc\_per\_unit\_v}}\) en fonction de la vitesse, ainsi que l'accélération moyenne en fonction de la vitesse maximale :
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Free acceleration.png}
+    \caption{Accélération moyenne en fonction de la vitesse maximale.}
+    \label{fig:free_acceleration}
+\end{figure}
 
 \end{document}
