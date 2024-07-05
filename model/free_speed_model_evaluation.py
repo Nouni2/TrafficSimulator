@@ -5,11 +5,13 @@ from scipy.integrate import cumulative_trapezoid
 # Paramètres pour la distribution de Pareto inversée
 alpha = 1.4
 beta = 7
-v_tol = 2  # Tolérance (km/h)
-v_max = 100  # Vitesse maximale (km/h)
+tolerance = 2  # Tolérance en pourcentage
+v_max = 30  # Vitesse maximale (km/h)
 N = 5000  # Nombre de véhicules
 k = 0.55  # Valeur de k entre 0 et 1
 
+# Calcul de la tolérance en km/h
+v_tol = v_max * (tolerance / 100)
 
 # Calcul de v_param en utilisant la formule avec correction
 v_param = v_max * (1.05 + 0.03 * k) - (beta * alpha / (alpha + 1)) ** (1 / alpha)

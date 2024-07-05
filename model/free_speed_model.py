@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Paramètres communs pour la distribution de Pareto inversée
-v_max = 100 # Vitesse maximale (m/s)
+v_max = 30 # Vitesse maximale (km/h)
 v = np.linspace(0, 1.5 * v_max, 10000)  # Domaine des vitesses
 k = 0.55  # Valeur de k entre 0 et 1
 
