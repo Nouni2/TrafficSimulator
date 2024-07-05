@@ -1,22 +1,41 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Paramètres pour la distribution de Pareto inversée
-alpha = 1.1
-beta = 0.4
-v_max = 30 # Vitesse maximale (m/s)
-v_param = v_max - (beta * alpha / (alpha + 1)) ** (1 / alpha)
+# Paramètres communs pour la distribution de Pareto inversée
+v_max = 61 # Vitesse maximale (m/s)
+v = np.linspace(0, 1.5 * v_max, 10000)  # Domaine des vitesses
 
-# Domaine de v
-v = np.linspace(0, 1.5*v_max, 10000)
+# Variation de beta avec alpha fixé à 1.1
+def plot_betas():
+    alpha = 1.1  # Alpha est une valeur empirique à ne surtout pas changer
+    betas = [0.2, 0.8]
+    
+    plt.figure(figsize=(14, 8))
+    
+    for beta in betas:
+        # Calcul de v_param dépendant de beta et alpha
+        v_param = v_max - (beta * alpha / (alpha + 1)) ** (1 / alpha)
+        
+        # Calcul de la densité de probabilité
+        g_v = (alpha * beta**alpha) / (v_param - v)**(alpha + 1) * np.exp(-beta * (v_param - v)**(-alpha))
+        g_v /= max(g_v)  # Normalisation
+        
+        plt.plot(v, g_v, label=f'Beta = {beta}')
+    
+    plt.xlabel('Vitesse (m/s)')
+    plt.ylabel('Densité de Probabilité')
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    plt.title('Distribution des Vitesses Utilisant la Distribution de Pareto Inversée pour Différentes Valeurs de Beta')
+    plt.legend()
+    plt.show()
 
-# Calcul de la densité de probabilité
-g_v = 1/(1.2)*(alpha * beta**alpha) / (v_param - v)**(alpha + 1) * np.exp(-beta * (v_param - v)**(-alpha))
+# Exemple d'appel pour tracer la variation de beta avec alpha fixé
+plot_betas()
 
-# Tracé de la distribution des vitesses
-plt.figure(figsize=(14, 8))
-plt.plot(v, g_v, color='blue')
-plt.xlabel('Vitesse (m/s)')
-plt.ylabel('Densité de Probabilité')
-plt.title('Distribution des Vitesses Utilisant la Distribution de Pareto Inversée')
-plt.show()
+# Effet de beta sur la distribution
+# Beta joue un rôle crucial dans la forme de la distribution :
+# - Un beta petit (0.2) produit une courbe de densité de probabilité plus concentrée et étroite autour de v_max,
+#   ce qui indique une distribution plus serrée des vitesses près de la valeur maximale.
+# - Un beta grand (0.8) élargit la distribution et augmente le volume sous la courbe près de v_max,
+#   ce qui signifie que les vitesses sont plus dispersées et qu'il y a une plus grande probabilité de trouver des vitesses
+#   légèrement inférieures à v_max.
