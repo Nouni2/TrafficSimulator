@@ -8,7 +8,7 @@ from scipy.spatial import cKDTree
 alpha = 1.4
 tolerance = 1  # Tolérance en pourcentage
 v_max = 100  # Vitesse maximale (km/h)
-N = 5000  # Nombre de véhicules
+N = 150  # Nombre de véhicules
 k = 0.55  # Valeur de k entre 0 et 1
 ratio = 0.8  # Ratio cible
 
