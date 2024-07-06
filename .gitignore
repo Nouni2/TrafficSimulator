@@ -93,3 +93,10 @@ DerivedData/
 
 # Dossiers de cache
 .cache/
+
+# Fichiers compilation LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
