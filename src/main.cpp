@@ -5,20 +5,17 @@
 #include <filesystem>
 #include "point.h"
 #include "road.h"
+#include "car.h"
 
 using namespace std;
 namespace fs = std::filesystem;
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 int main() {
     // Définir le centre du rond-point
     Point center(0.0, 0.0, 0.0);
 
     // Définir le rayon du rond-point
-    double radius = 5;
+    double radius = 10.0;
 
     // Définir le nombre de voies
     int lanes = 2;
@@ -59,6 +56,14 @@ int main() {
     // Afficher les résultats
     cout << "Flow rate optimal par voie: " << q_max * 3600 << " veh/h" << endl;
     cout << "Vitesse optimale: " << v_opt * 3.6 << " km/h" << endl;
+
+    // Créer et afficher une voiture
+    Car myCar(Point(0, 0, 0), 0, 2.0, 0, 4.5);
+    myCar.display();
+
+    // Mettre à jour la position de la voiture
+    myCar.updatePosition(1.0); // Mise à jour après 1 seconde
+    myCar.display();
 
     return 0;
 }
