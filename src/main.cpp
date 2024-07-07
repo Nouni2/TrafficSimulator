@@ -26,10 +26,11 @@ int main() {
     // Créer le rond-point
     vector<Road> roundabout = Roundabout(center, radius, lanes, speedLimit);
 
-    // Obtenir le chemin du répertoire de travail actuel
-    fs::path currentPath = fs::current_path();
-    fs::path projectRootPath = currentPath.parent_path().parent_path();
-    fs::path dataPath = projectRootPath / "data" / "points.txt";
+    // Chemin relatif vers le fichier points.txt
+    fs::path dataPath = fs::current_path() / ".." / "data" / "points.txt";
+    
+    // Résoudre le chemin absolu pour vérification
+    dataPath = fs::absolute(dataPath);
 
     // Écrire les points dans un fichier
     ofstream outFile(dataPath);

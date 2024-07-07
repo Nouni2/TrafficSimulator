@@ -124,7 +124,7 @@ std::pair<double, double> Road::optimalFlowRate(double v_f, double L, double t_r
     double k_j = 1 / (L + s_v_opt);
     
     // Calculer le flow rate maximum
-    double q_max = (v_opt / (L + s_v_opt)) * pow(1 - (v_opt / v_f), 1 / p);
+    double q_max = (v_opt * k_j) * pow(1 - (v_opt / v_f), 1 / p);
     
     return std::make_pair(q_max, v_opt);
 }
