@@ -8,4 +8,4 @@ LDFLAGS="-lGL -lGLEW -lglfw"
 g++ $CXXFLAGS $(find ./src -name "*.cpp") -o ./src/main
 
 # Compilez les fichiers .cpp de OpenGL en un exécutable OpenGL/main
-g++ $CXXFLAGS $(find ./OpenGL -name "*.cpp") -o ./OpenGL/opengl $LDFLAGS
+g++ $CXXFLAGS $(find ./OpenGL -name "*.cpp") -o ./OpenGL/mainOpenGL $LDFLAGS
