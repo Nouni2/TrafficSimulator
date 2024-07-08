@@ -11,6 +11,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 // Fonction pour charger une texture avec stb_image
 GLuint loadTexture(const char* filepath) {
+    stbi_set_flip_vertically_on_load(true); // Inverser la texture verticalement lors du chargement
     int width, height, nrChannels;
     unsigned char* data = stbi_load(filepath, &width, &height, &nrChannels, 0);
     if (!data) {
@@ -22,7 +23,15 @@ GLuint loadTexture(const char* filepath) {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    GLenum format = GL_RGB;
+    if (nrChannels == 1)
+        format = GL_RED;
+    else if (nrChannels == 3)
+        format = GL_RGB;
+    else if (nrChannels == 4)
+        format = GL_RGBA;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(data);
@@ -37,17 +46,18 @@ GLuint loadTexture(const char* filepath) {
 
 // Fonction pour dessiner la voiture (un simple carré pour la démonstration)
 void drawCar(GLuint textureID) {
+    glEnable(GL_TEXTURE_2D); // Activer le texturing
     glBindTexture(GL_TEXTURE_2D, textureID);
 
     glBegin(GL_QUADS);
-    glColor3f(1.0f, 1.0f, 1.0f); // Couleur blanche pour afficher la texture
-    glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.05f, -0.05f);
-    glTexCoord2f(1.0f, 0.0f); glVertex2f( 0.05f, -0.05f);
-    glTexCoord2f(1.0f, 1.0f); glVertex2f( 0.05f,  0.05f);
-    glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.05f,  0.05f);
+    glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.25f, -0.125f); // Ajuster la taille de la voiture
+    glTexCoord2f(1.0f, 0.0f); glVertex2f(0.25f, -0.125f);
+    glTexCoord2f(1.0f, 1.0f); glVertex2f(0.25f, 0.125f);
+    glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.25f, 0.125f);
     glEnd();
 
     glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE_2D); // Désactiver le texturing
 }
 
 int main() {
@@ -72,11 +82,21 @@ int main() {
         return -1;
     }
 
+    // Activer la transparence
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Définir la fonction de rappel pour la taille de la fenêtre
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // Charger la texture
-    GLuint carTexture = loadTexture("../assets/car.png");
+    const char* texturePath = "../assets/car.png";
+    GLuint carTexture = loadTexture(texturePath);
+
+    if (carTexture == 0) {
+        std::cerr << "Failed to load texture: " << texturePath << std::endl;
+        return -1;
+    }
 
     // Boucle de rendu
     while (!glfwWindowShouldClose(window)) {
