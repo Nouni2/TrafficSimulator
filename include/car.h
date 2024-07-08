@@ -12,6 +12,7 @@ public:
     // Redéfinir les méthodes virtuelles
     void updatePosition(double deltaTime) override;
     void display() const override;
+
 };
 
 #endif // CAR_H
