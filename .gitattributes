@@ -1,0 +1,2 @@
+# Ignore Python files for language statistics
+*.py linguist-detectable=false
